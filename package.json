@@ -38,6 +38,7 @@
     "graphql": "^16.8.1",
     "lucide-react": "^1.8.0",
     "next": "16.2.3",
+    "next-intl": "^4.9.1",
     "nodemailer": "^8.0.5",
     "payload": "3.83.0",
     "react": "19.2.5",
@@ -60,6 +61,7 @@
     "eslint-config-next": "16.2.3",
     "jsdom": "28.0.0",
     "postcss": "^8.5.10",
+    "postgres": "^3.4.9",
     "prettier": "^3.4.2",
     "tailwindcss": "^4.2.2",
     "tsx": "4.21.0",
@@ -69,8 +71,11 @@
   },
   "pnpm": {
     "onlyBuiltDependencies": [
-      "sharp",
+      "@parcel/watcher",
+      "@swc/core",
       "esbuild",
+      "msw",
+      "sharp",
       "unrs-resolver"
     ]
   }
