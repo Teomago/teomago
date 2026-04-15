@@ -1,0 +1,10 @@
+wing: teomago
+rooms:
+- name: planning
+  description: Files from specs/
+  keywords:
+  - planning
+  - specs
+- name: general
+  description: Files that don't fit other rooms
+  keywords: []
