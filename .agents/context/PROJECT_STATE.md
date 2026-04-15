@@ -4,14 +4,21 @@
 Personal portfolio development.
 
 ## Current Status
-Project initialized with agent pipeline.
+Payload CMS 3.x initialized with Tailwind v4, shadcn/ui, and multilingual (ES/EN) support.
 
 ## Architecture
-- Next.js + Payload CMS 3.x (Planned)
+- **Framework:** Next.js 16 (App Router)
+- **CMS:** Payload CMS 3.x
+- **DB:** Neon (PostgreSQL)
+- **Storage:** Cloudflare R2
+- **Email:** Brevo
+- **Styling:** Tailwind CSS v4 + shadcn/ui
+- **i18n:** next-intl (Frontend) + Payload Localization
 
 ## Completed Cycles
-- Cycle 0: Agent pipeline setup.
+- **Cycle 0:** Agent pipeline setup.
+- **Cycle 1 (RFC-001):** Project Bootstrap & Services Setup.
 
 ## Next Steps
-- Initialize Payload CMS project.
 - Define core schema (Projects, Skills, Experience).
+- RFC-002: UI/UX Design (Tech Gamer Musician Vibe).
