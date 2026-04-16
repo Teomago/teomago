@@ -3,7 +3,7 @@ import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
-import { Unbounded, Chakra_Petch, JetBrains_Mono, Crimson_Pro } from 'next/font/google'
+import { Unbounded, Chakra_Petch, JetBrains_Mono } from 'next/font/google'
 import './styles.css'
 
 const unbounded = Unbounded({
@@ -24,13 +24,6 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ['400', '500', '700'],
 })
 
-const crimsonPro = Crimson_Pro({
-  subsets: ['latin'],
-  variable: '--font-body',
-  weight: ['400', '600'],
-  style: ['normal', 'italic'],
-})
-
 export const metadata = {
   description: 'Full-Stack Developer · Musician · Arts Educator',
   title: 'Teomago',
@@ -49,7 +42,7 @@ export default async function RootLayout(props: {
   const messages = await getMessages()
 
   return (
-    <html lang={locale} className={`${unbounded.variable} ${chakraPetch.variable} ${jetbrainsMono.variable} ${crimsonPro.variable}`}>
+    <html lang={locale} className={`${unbounded.variable} ${chakraPetch.variable} ${jetbrainsMono.variable}`}>
       <body>
         <NextIntlClientProvider messages={messages}>
           <main>{props.children}</main>
