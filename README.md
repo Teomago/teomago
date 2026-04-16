@@ -1,67 +1,154 @@
-# Payload Blank Template
+# TEOMAGO
 
-This template comes configured with the bare minimum to get started on anything you need.
+```
+◈ CHARACTER SHEET ────────────────────────────────── TEOMAGO_v2.0 ◈
+```
 
-## Quick start
+**CLASS:** Full-Stack Developer · Musician · Arts Educator  
+**ORIGIN:** Bogotá, Colombia  
+**CURRENT CAMPAIGN:** Building at the edge of code, sound, and meaning
 
-This template can be deployed directly from our Cloud hosting and it will setup MongoDB and cloud S3 object storage for media.
+---
 
-## Quick Start - local setup
+## LORE
 
-To spin up this template locally, follow these steps:
+My name is Mateo Ibagón. I go by Teomago — Teo the Mage.
 
-### Clone
+I build things on the internet. I also play jazz, lead worship at my church, teach music to a student who is the daughter of one of my closest friends, and just finished a Master's thesis on how grief can become a forge.
 
-After you click the `Deploy` button above, you'll want to have standalone copy of this repo on your machine. If you've already cloned this repo, skip to [Development](#development).
+That last part matters. My thesis — *Realidad, Memoria y Creencia: Semillas Resonantes* — argues that the artist-educator's job is not to deliver certainties. It is to keep the forge burning. To turn disorientation into power. To build a criterion of your own, resilient and always evolving.
 
-### Development
+That's also how I write code.
 
-1. First [clone the repo](#clone) if you have not done so already
-2. `cd my-project && cp .env.example .env` to copy the example environment variables. You'll need to add the `MONGODB_URL` from your Cloud project to your `.env` if you want to use S3 storage and the MongoDB database that was created for you.
+---
 
-3. `pnpm install && pnpm dev` to install dependencies and start the dev server
-4. open `http://localhost:3000` to open the app in your browser
+## ACTIVE QUESTS
 
-That's it! Changes made in `./src` will be reflected in your app. Follow the on-screen instructions to login and create your first admin user. Then check out [Production](#production) once you're ready to build and serve your app, and [Deployment](#deployment) when you're ready to go live.
+| Quest | Class | Status |
+|-------|-------|--------|
+| [Fundación Jazz para la Paz](https://fjpp.vercel.app/) | Music | ⟳ In Progress |
+| [HeionHub](https://heionhub.com/) | Tech | ⟳ In Progress |
+| Realidad, Memoria y Creencia | Education | ✓ Completed |
+| SPC — Canadian College | Tech | ✓ Completed |
 
-#### Docker (Optional)
+---
 
-If you prefer to use Docker for local development instead of a local MongoDB instance, the provided docker-compose.yml file can be used.
+## CORE STATS
 
-To do so, follow these steps:
+```
+TypeScript        ████████████████████████  94
+Next.js           ███████████████████████   91
+React             ██████████████████████    90
+PayloadCMS        ████████████████████      88
+Jazz Piano        █████████████████████     85
+Music Production  ████████████████████      80
+```
 
-- Modify the `MONGODB_URL` in your `.env` file to `mongodb://127.0.0.1/<dbname>`
-- Modify the `docker-compose.yml` file's `MONGODB_URL` to match the above `<dbname>`
-- Run `docker-compose up` to start the database, optionally pass `-d` to run in the background.
+---
 
-## How it works
+## CAMPAIGN LOG
 
-The Payload config is tailored specifically to the needs of most websites. It is pre-configured in the following ways:
+- **10x Media** — Full-Stack Developer *(current)*
+- **Lean Solutions Group** — Developer
+- **Canadian College** — Built SPC from scratch: Spring Boot security → Next.js frontend → 1500+ students/week
+- **Mostaza** — Web development. Found PayloadCMS. Changed everything.
+- **Fundación Jazz para la Paz** — Musician / Workshop Lead *(ongoing)*
+- **Vineyard Bogotá** — Worship Musician *(ongoing)*
 
-### Collections
+---
 
-See the [Collections](https://payloadcms.com/docs/configuration/collections) docs for details on how to extend this functionality.
+## STACK
 
-- #### Users (Authentication)
+`Next.js` · `PayloadCMS` · `TypeScript` · `React` · `Java` · `Spring Boot` · `Tailwind v4` · `Neon (Postgres)` · `Cloudflare R2`
 
-  Users are auth-enabled collections that have access to the admin panel.
+---
 
-  For additional help, see the official [Auth Example](https://github.com/payloadcms/payload/tree/main/examples/auth) or the [Authentication](https://payloadcms.com/docs/authentication/overview#authentication-overview) docs.
+## THE FORGE
 
-- #### Media
+> *"La labor del artista-pedagogo en una realidad emocional difusa no es entregar certezas,  
+> sino mantener la forja encendida."*
+>
+> — Mateo Ibagón, *Realidad, Memoria y Creencia: Semillas Resonantes*, 2026
 
-  This is the uploads enabled collection. It features pre-configured sizes, focal point and manual resizing to help you manage your pictures.
+This portfolio is built with that same conviction. Every project here is a quest logged. Every skill is a stat earned. The forge is still burning.
 
-### Docker
+📧 teo.ibagon@gmail.com
 
-Alternatively, you can use [Docker](https://www.docker.com) to spin up this template locally. To do so, follow these steps:
+---
+---
 
-1. Follow [steps 1 and 2 from above](#development), the docker-compose file will automatically use the `.env` file in your project root
-1. Next run `docker-compose up`
-1. Follow [steps 4 and 5 from above](#development) to login and create your first admin user
+# TEOMAGO *(en español)*
 
-That's it! The Docker instance will help you get up and running quickly while also standardizing the development environment across your teams.
+```
+◈ HOJA DE PERSONAJE ─────────────────────────────── TEOMAGO_v2.0 ◈
+```
 
-## Questions
+**CLASE:** Desarrollador Full-Stack · Músico · Educador Artístico  
+**ORIGEN:** Bogotá, Colombia  
+**CAMPAÑA ACTIVA:** Construyendo en el límite entre el código, el sonido y el sentido
 
-If you have any issues or questions, reach out to us on [Discord](https://discord.com/invite/payload) or start a [GitHub discussion](https://github.com/payloadcms/payload/discussions).
+---
+
+## HISTORIA
+
+Me llamo Mateo Ibagón. Me conocen como Teomago.
+
+Construyo cosas en internet. También toco jazz, dirijo la alabanza en mi iglesia, le enseño música a la hija de uno de mis mejores amigos, y acabo de terminar una tesis de maestría sobre cómo el duelo puede convertirse en forja.
+
+Esa última parte importa. Mi tesis — *Realidad, Memoria y Creencia: Semillas Resonantes* — argumenta que la labor del artista-pedagogo no es entregar certezas. Es mantener la forja encendida. Convertir la desorientación en potencia. Construir un criterio propio, resiliente y en constante evolución.
+
+Así también escribo código.
+
+---
+
+## MISIONES ACTIVAS
+
+| Misión | Clase | Estado |
+|--------|-------|--------|
+| [Fundación Jazz para la Paz](https://fjpp.vercel.app/) | Música | ⟳ En progreso |
+| [HeionHub](https://heionhub.com/) | Tech | ⟳ En progreso |
+| Realidad, Memoria y Creencia | Educación | ✓ Completada |
+| SPC — Canadian College | Tech | ✓ Completada |
+
+---
+
+## ATRIBUTOS
+
+```
+TypeScript        ████████████████████████  94
+Next.js           ███████████████████████   91
+React             ██████████████████████    90
+PayloadCMS        ████████████████████      88
+Jazz Piano        █████████████████████     85
+Producción Musical████████████████████      80
+```
+
+---
+
+## REGISTRO DE CAMPAÑAS
+
+- **10x Media** — Desarrollador Full-Stack *(actual)*
+- **Lean Solutions Group** — Desarrollador
+- **Canadian College** — Creé SPC desde cero: seguridad Spring Boot → frontend Next.js → +1500 estudiantes/semana
+- **Mostaza** — Desarrollo web. Descubrí PayloadCMS. Cambió todo.
+- **Fundación Jazz para la Paz** — Músico / Director de Talleres *(en curso)*
+- **Vineyard Bogotá** — Músico de Alabanza *(en curso)*
+
+---
+
+## STACK
+
+`Next.js` · `PayloadCMS` · `TypeScript` · `React` · `Java` · `Spring Boot` · `Tailwind v4` · `Neon (Postgres)` · `Cloudflare R2`
+
+---
+
+## LA FORJA
+
+> *"La labor del artista-pedagogo en una realidad emocional difusa no es entregar certezas,  
+> sino mantener la forja encendida."*
+>
+> — Mateo Ibagón, *Realidad, Memoria y Creencia: Semillas Resonantes*, 2026
+
+Este portafolio está construido con esa misma convicción. Cada proyecto es una misión registrada. Cada habilidad es un atributo ganado. La forja sigue encendida.
+
+📧 teo.ibagon@gmail.com
