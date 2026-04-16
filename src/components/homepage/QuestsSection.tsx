@@ -274,7 +274,7 @@ export function QuestsSection({
           <span className="font-mono text-xs" style={{ color: 'var(--color-muted)' }}>{t('subtitle')}</span>
           <div className="flex-1 h-px" style={{ background: 'var(--color-border)' }} />
           <span className="font-mono text-xs" style={{ color: 'var(--color-muted)' }}>
-            {data.length} entries
+            {t('count', { n: data.length })}
           </span>
         </div>
 

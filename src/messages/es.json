@@ -15,11 +15,13 @@
   },
   "stats": {
     "title": "ATRIBUTOS",
-    "subtitle": "/ ATTRIBUTES"
+    "subtitle": "/ ATTRIBUTES",
+    "count": "{n} atributos"
   },
   "quests": {
     "title": "MISIONES",
     "subtitle": "/ QUESTS",
+    "count": "{n} misiones",
     "status": {
       "completed": "Completada",
       "in-progress": "En Progreso",
@@ -30,6 +32,7 @@
   "campaigns": {
     "title": "CAMPAÑAS",
     "subtitle": "/ CAMPAIGNS",
+    "count": "{n} campañas",
     "present": "Presente",
     "rewards": "Logros Obtenidos"
   }

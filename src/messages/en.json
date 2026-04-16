@@ -15,11 +15,13 @@
   },
   "stats": {
     "title": "ATTRIBUTES",
-    "subtitle": "/ ATTRIBUTES"
+    "subtitle": "/ ATTRIBUTES",
+    "count": "{n} skills"
   },
   "quests": {
     "title": "QUESTS",
     "subtitle": "/ QUESTS",
+    "count": "{n} quests",
     "status": {
       "completed": "Completed",
       "in-progress": "In Progress",
@@ -30,6 +32,7 @@
   "campaigns": {
     "title": "CAMPAIGNS",
     "subtitle": "/ CAMPAIGNS",
+    "count": "{n} campaigns",
     "present": "Present",
     "rewards": "Rewards Earned"
   }
