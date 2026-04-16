@@ -48,3 +48,10 @@ node_modules/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# context
+/.agents/context/payloadcms
+/.agents/context/Teomago Profile
+
+# local dev scripts (dangerous — not for repo)
+drop.cjs

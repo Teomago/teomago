@@ -1,1 +1,25 @@
-{}
+{
+  "nav": {
+    "stats": "Attributes",
+    "quests": "Quests",
+    "campaigns": "Campaigns",
+    "contact": "Contact"
+  },
+  "hero": {
+    "viewQuest": "View Quest",
+    "level": "Level",
+    "character": "Character Sheet"
+  },
+  "quests": {
+    "status": {
+      "completed": "Completed",
+      "in-progress": "In Progress",
+      "side-quest": "Side Quest"
+    },
+    "viewProject": "View Project"
+  },
+  "campaigns": {
+    "present": "Present",
+    "rewards": "Rewards Earned"
+  }
+}

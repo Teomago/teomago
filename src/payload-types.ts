@@ -69,6 +69,9 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    quests: Quest;
+    stats: Stat;
+    campaigns: Campaign;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -78,6 +81,9 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    quests: QuestsSelect<false> | QuestsSelect<true>;
+    stats: StatsSelect<false> | StatsSelect<true>;
+    campaigns: CampaignsSelect<false> | CampaignsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -87,8 +93,12 @@ export interface Config {
     defaultIDType: number;
   };
   fallbackLocale: ('false' | 'none' | 'null') | false | null | ('es' | 'en') | ('es' | 'en')[];
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    hero: Hero;
+  };
+  globalsSelect: {
+    hero: HeroSelect<false> | HeroSelect<true>;
+  };
   locale: 'es' | 'en';
   widgets: {
     collections: CollectionsWidget;
@@ -143,11 +153,16 @@ export interface User {
   collection: 'users';
 }
 /**
+ * Images and media files.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
 export interface Media {
   id: number;
+  /**
+   * Alt text for accessibility and SEO.
+   */
   alt: string;
   updatedAt: string;
   createdAt: string;
@@ -160,6 +175,405 @@ export interface Media {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
+  sizes?: {
+    thumbnail?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    card?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    og?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
+}
+/**
+ * Projects displayed as RPG quests.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "quests".
+ */
+export interface Quest {
+  id: number;
+  generateSlug?: boolean | null;
+  slug: string;
+  title: string;
+  /**
+   * Lower = appears first. 1=fjpp, 2=heionhub, 3=thesis, 4=Canadian College.
+   */
+  sortOrder: number;
+  /**
+   * Featured quests appear prominently in the grid.
+   */
+  featured?: boolean | null;
+  category: 'tech' | 'music' | 'art' | 'coffee' | 'education';
+  questStatus: 'completed' | 'in-progress' | 'side-quest';
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  /**
+   * Falls back to the default mockup image if not set.
+   */
+  coverImage?: (number | null) | Media;
+  stack?:
+    | {
+        techName: string;
+        icon?:
+          | (
+              | 'Code'
+              | 'Terminal'
+              | 'Database'
+              | 'Server'
+              | 'Cloud'
+              | 'Cpu'
+              | 'Binary'
+              | 'Braces'
+              | 'FileCode'
+              | 'FileCode2'
+              | 'FileTerminal'
+              | 'Layers'
+              | 'Package'
+              | 'Puzzle'
+              | 'Settings'
+              | 'Settings2'
+              | 'Wrench'
+              | 'Bug'
+              | 'Globe'
+              | 'Globe2'
+              | 'Network'
+              | 'Wifi'
+              | 'HardDrive'
+              | 'Monitor'
+              | 'Laptop'
+              | 'Smartphone'
+              | 'Keyboard'
+              | 'GitBranch'
+              | 'GitCommit'
+              | 'GitFork'
+              | 'GitMerge'
+              | 'GitPullRequest'
+              | 'Github'
+              | 'Lock'
+              | 'Unlock'
+              | 'Shield'
+              | 'ShieldCheck'
+              | 'Key'
+              | 'Fingerprint'
+              | 'Zap'
+              | 'Activity'
+              | 'BarChart'
+              | 'BarChart2'
+              | 'BarChart3'
+              | 'PieChart'
+              | 'LineChart'
+              | 'TrendingUp'
+              | 'TrendingDown'
+              | 'RefreshCw'
+              | 'RotateCw'
+              | 'Music'
+              | 'Music2'
+              | 'Music3'
+              | 'Music4'
+              | 'Headphones'
+              | 'Mic'
+              | 'Mic2'
+              | 'MicOff'
+              | 'Radio'
+              | 'Volume'
+              | 'Volume1'
+              | 'Volume2'
+              | 'VolumeX'
+              | 'Guitar'
+              | 'Piano'
+              | 'Drum'
+              | 'Disc'
+              | 'Disc2'
+              | 'Disc3'
+              | 'AudioWaveform'
+              | 'Waves'
+              | 'Play'
+              | 'Pause'
+              | 'SkipBack'
+              | 'SkipForward'
+              | 'Rewind'
+              | 'FastForward'
+              | 'Repeat'
+              | 'Shuffle'
+              | 'ListMusic'
+              | 'Speaker'
+              | 'Sliders'
+              | 'Palette'
+              | 'Brush'
+              | 'Pen'
+              | 'PenTool'
+              | 'Pencil'
+              | 'Paintbrush'
+              | 'Paintbrush2'
+              | 'Feather'
+              | 'Crop'
+              | 'Scissors'
+              | 'Ruler'
+              | 'DraftingCompass'
+              | 'Image'
+              | 'ImagePlus'
+              | 'Camera'
+              | 'Aperture'
+              | 'Film'
+              | 'Clapperboard'
+              | 'Tv'
+              | 'MonitorPlay'
+              | 'Frame'
+              | 'Shapes'
+              | 'Circle'
+              | 'Triangle'
+              | 'Hexagon'
+              | 'Figma'
+              | 'Book'
+              | 'BookOpen'
+              | 'BookCopy'
+              | 'BookMarked'
+              | 'GraduationCap'
+              | 'School'
+              | 'Microscope'
+              | 'FlaskConical'
+              | 'TestTube'
+              | 'Brain'
+              | 'Lightbulb'
+              | 'LightbulbOff'
+              | 'Compass'
+              | 'Map'
+              | 'Award'
+              | 'Medal'
+              | 'Trophy'
+              | 'Target'
+              | 'Atom'
+              | 'Twitter'
+              | 'Instagram'
+              | 'Linkedin'
+              | 'Youtube'
+              | 'Facebook'
+              | 'Discord'
+              | 'Slack'
+              | 'Mail'
+              | 'MailOpen'
+              | 'MessageCircle'
+              | 'MessageSquare'
+              | 'Phone'
+              | 'PhoneCall'
+              | 'Video'
+              | 'VideoOff'
+              | 'Link'
+              | 'Link2'
+              | 'ExternalLink'
+              | 'Share'
+              | 'Share2'
+              | 'Send'
+              | 'Rss'
+              | 'AtSign'
+              | 'Hash'
+              | 'User'
+              | 'Users'
+              | 'UserPlus'
+              | 'UserCheck'
+              | 'Contact'
+              | 'Sword'
+              | 'ShieldAlert'
+              | 'Wand'
+              | 'Wand2'
+              | 'Sparkles'
+              | 'Star'
+              | 'Heart'
+              | 'Flame'
+              | 'Crown'
+              | 'Gem'
+              | 'Scroll'
+              | 'MapPin'
+              | 'Navigation'
+              | 'Crosshair'
+              | 'Swords'
+              | 'Ghost'
+              | 'Home'
+              | 'Layout'
+              | 'Grid'
+              | 'List'
+              | 'Columns'
+              | 'Sidebar'
+              | 'Menu'
+              | 'Search'
+              | 'Filter'
+              | 'Download'
+              | 'Upload'
+              | 'Calendar'
+              | 'Clock'
+              | 'Timer'
+              | 'Bookmark'
+              | 'Tag'
+              | 'Tags'
+              | 'Flag'
+              | 'Bell'
+              | 'Coffee'
+              | 'Briefcase'
+              | 'Building'
+              | 'Building2'
+              | 'Store'
+              | 'DollarSign'
+              | 'CreditCard'
+              | 'Infinity'
+              | 'Info'
+              | 'HelpCircle'
+              | 'AlertTriangle'
+              | 'Eye'
+              | 'EyeOff'
+              | 'Sun'
+              | 'Moon'
+              | 'Wind'
+            )
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Live URL or GitHub link.
+   */
+  link?: string | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "stats".
+ */
+export interface Stat {
+  id: number;
+  name: string;
+  /**
+   * 1–99. This is your RPG skill level.
+   */
+  level: number;
+  category: 'frontend' | 'backend' | 'music' | 'audio-engineering';
+  /**
+   * Lucide icon displayed next to the stat.
+   */
+  icon:
+    | 'Code'
+    | 'Terminal'
+    | 'Database'
+    | 'Server'
+    | 'Cloud'
+    | 'Cpu'
+    | 'Binary'
+    | 'Braces'
+    | 'FileCode'
+    | 'Layers'
+    | 'Package'
+    | 'Globe'
+    | 'GitBranch'
+    | 'Shield'
+    | 'Zap'
+    | 'Activity'
+    | 'Music'
+    | 'Music2'
+    | 'Headphones'
+    | 'Mic'
+    | 'Guitar'
+    | 'Piano'
+    | 'Drum'
+    | 'AudioWaveform'
+    | 'Waves'
+    | 'Sliders'
+    | 'Palette'
+    | 'Brush'
+    | 'Pen'
+    | 'PenTool'
+    | 'Brain'
+    | 'GraduationCap'
+    | 'BookOpen'
+    | 'Lightbulb'
+    | 'Star'
+    | 'Sparkles'
+    | 'Gem'
+    | 'Flame'
+    | 'Coffee'
+    | 'Feather';
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "campaigns".
+ */
+export interface Campaign {
+  id: number;
+  company: string;
+  role: string;
+  startDate: string;
+  /**
+   * Check if this is your current position. Hides end date.
+   */
+  isCurrent?: boolean | null;
+  /**
+   * Leave empty if current.
+   */
+  endDate?: string | null;
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  questRewards?:
+    | {
+        achievementName: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -192,6 +606,18 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'quests';
+        value: number | Quest;
+      } | null)
+    | ({
+        relationTo: 'stats';
+        value: number | Stat;
+      } | null)
+    | ({
+        relationTo: 'campaigns';
+        value: number | Campaign;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -274,6 +700,105 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+  sizes?:
+    | T
+    | {
+        thumbnail?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        card?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        og?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "quests_select".
+ */
+export interface QuestsSelect<T extends boolean = true> {
+  generateSlug?: T;
+  slug?: T;
+  title?: T;
+  sortOrder?: T;
+  featured?: T;
+  category?: T;
+  questStatus?: T;
+  description?: T;
+  coverImage?: T;
+  stack?:
+    | T
+    | {
+        techName?: T;
+        icon?: T;
+        id?: T;
+      };
+  link?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "stats_select".
+ */
+export interface StatsSelect<T extends boolean = true> {
+  name?: T;
+  level?: T;
+  category?: T;
+  icon?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "campaigns_select".
+ */
+export interface CampaignsSelect<T extends boolean = true> {
+  company?: T;
+  role?: T;
+  startDate?: T;
+  isCurrent?: T;
+  endDate?: T;
+  description?: T;
+  questRewards?:
+    | T
+    | {
+        achievementName?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -314,6 +839,111 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * The landing page character sheet.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hero".
+ */
+export interface Hero {
+  id: number;
+  /**
+   * Your full name.
+   */
+  name: string;
+  /**
+   * Your headline role.
+   */
+  role: string;
+  /**
+   * Your bio. Displayed in the Hero section.
+   */
+  bio: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  /**
+   * Profile photo. Falls back to the default mockup image.
+   */
+  avatar?: (number | null) | Media;
+  /**
+   * Max 6 stats. Displayed as RPG progress bars in the Hero.
+   */
+  stats?:
+    | {
+        statName: string;
+        /**
+         * 1–99 RPG stat value.
+         */
+        value: number;
+        id?: string | null;
+      }[]
+    | null;
+  socialLinks?:
+    | {
+        label: string;
+        url: string;
+        icon: 'Github' | 'Linkedin' | 'Twitter' | 'Instagram' | 'Youtube' | 'Mail' | 'ExternalLink' | 'Link';
+        id?: string | null;
+      }[]
+    | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hero_select".
+ */
+export interface HeroSelect<T extends boolean = true> {
+  name?: T;
+  role?: T;
+  bio?: T;
+  avatar?: T;
+  stats?:
+    | T
+    | {
+        statName?: T;
+        value?: T;
+        id?: T;
+      };
+  socialLinks?:
+    | T
+    | {
+        label?: T;
+        url?: T;
+        icon?: T;
+        id?: T;
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -1,59 +1,42 @@
-import { headers as getHeaders } from 'next/headers.js'
-import Image from 'next/image'
 import { getPayload } from 'payload'
-import React from 'react'
-import { fileURLToPath } from 'url'
-
 import config from '@/payload.config'
-import './styles.css'
+import { HeroSection } from '@/components/homepage/HeroSection'
+import { StatsSection } from '@/components/homepage/StatsSection'
+import { QuestsSection } from '@/components/homepage/QuestsSection'
+import { CampaignsSection } from '@/components/homepage/CampaignsSection'
+import { LocaleSwitcher } from '@/components/homepage/LocaleSwitcher'
+import type { Metadata } from 'next'
+
+const DEFAULT_AVATAR = 'https://images.unsplash.com/photo-1595971294624-80bcf0d7eb24?w=900&auto=format&fit=crop&q=60'
+
+export async function generateMetadata(): Promise<Metadata> {
+  const payload = await getPayload({ config })
+  const hero = await payload.findGlobal({ slug: 'hero' })
+  return {
+    title: `Teomago — ${hero?.name ?? 'Portfolio'}`,
+    description: hero?.role ?? 'Full-Stack Developer · Musician · Arts Educator',
+  }
+}
 
 export default async function HomePage() {
-  const headers = await getHeaders()
-  const payloadConfig = await config
-  const payload = await getPayload({ config: payloadConfig })
-  const { user } = await payload.auth({ headers })
+  const payload = await getPayload({ config })
 
-  const fileURL = `vscode://file/${fileURLToPath(import.meta.url)}`
+  const [hero, statsResult, questsResult, campaignsResult] = await Promise.all([
+    payload.findGlobal({ slug: 'hero' }),
+    payload.find({ collection: 'stats', sort: '-level', limit: 24 }),
+    payload.find({ collection: 'quests', sort: 'sortOrder', limit: 20, where: { _status: { equals: 'published' } } }),
+    payload.find({ collection: 'campaigns', sort: '-startDate', limit: 10 }),
+  ])
 
   return (
-    <div className="home">
-      <div className="content">
-        <picture>
-          <source srcSet="https://raw.githubusercontent.com/payloadcms/payload/main/packages/ui/src/assets/payload-favicon.svg" />
-          <Image
-            alt="Payload Logo"
-            height={65}
-            src="https://raw.githubusercontent.com/payloadcms/payload/main/packages/ui/src/assets/payload-favicon.svg"
-            width={65}
-          />
-        </picture>
-        {!user && <h1>Welcome to your new project.</h1>}
-        {user && <h1>Welcome back, {user.email}</h1>}
-        <div className="links">
-          <a
-            className="admin"
-            href={payloadConfig.routes.admin}
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Go to admin panel
-          </a>
-          <a
-            className="docs"
-            href="https://payloadcms.com/docs"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Documentation
-          </a>
-        </div>
+    <main className="min-h-screen bg-void relative">
+      <div className="absolute top-4 right-4 z-50">
+        <LocaleSwitcher />
       </div>
-      <div className="footer">
-        <p>Update this page by editing</p>
-        <a className="codeLink" href={fileURL}>
-          <code>app/(frontend)/page.tsx</code>
-        </a>
-      </div>
-    </div>
+      <HeroSection hero={hero} defaultAvatar={DEFAULT_AVATAR} />
+      <StatsSection stats={statsResult.docs} />
+      <QuestsSection quests={questsResult.docs} defaultCover={DEFAULT_AVATAR} />
+      <CampaignsSection campaigns={campaignsResult.docs} />
+    </main>
   )
 }

@@ -1,1 +1,25 @@
-{}
+{
+  "nav": {
+    "stats": "Atributos",
+    "quests": "Misiones",
+    "campaigns": "Campañas",
+    "contact": "Contacto"
+  },
+  "hero": {
+    "viewQuest": "Ver Misión",
+    "level": "Nivel",
+    "character": "Hoja de Personaje"
+  },
+  "quests": {
+    "status": {
+      "completed": "Completada",
+      "in-progress": "En Progreso",
+      "side-quest": "Misión Secundaria"
+    },
+    "viewProject": "Ver Proyecto"
+  },
+  "campaigns": {
+    "present": "Presente",
+    "rewards": "Logros Obtenidos"
+  }
+}
