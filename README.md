@@ -36,12 +36,12 @@ That's also how I write code.
 ## CORE STATS
 
 ```
-TypeScript        ████████████████████████  94
-Next.js           ███████████████████████   91
-React             ██████████████████████    90
-PayloadCMS        ████████████████████      88
-Jazz Piano        █████████████████████     85
-Music Production  ████████████████████      80
+Guitar (Jazz/Prog Metal)  █████████████████████████  99
+Music Production          ████████████████████████   97
+TypeScript                ███████████████████████    94
+Next.js                   ██████████████████████     91
+React                     ██████████████████████     90
+PayloadCMS                █████████████████████      89
 ```
 
 ---
@@ -115,12 +115,12 @@ Así también escribo código.
 ## ATRIBUTOS
 
 ```
-TypeScript        ████████████████████████  94
-Next.js           ███████████████████████   91
-React             ██████████████████████    90
-PayloadCMS        ████████████████████      88
-Jazz Piano        █████████████████████     85
-Producción Musical████████████████████      80
+Guitarra (Jazz y Metal Prog.)  █████████████████████████  99
+Producción Musical             ████████████████████████   97
+TypeScript                     ███████████████████████    94
+Next.js                        ██████████████████████     91
+React                          ██████████████████████     90
+PayloadCMS                     █████████████████████      89
 ```
 
 ---

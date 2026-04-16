@@ -13,12 +13,12 @@ const DEFAULT_BIO =
   "Full-stack developer, jazz musician, and arts educator forging tools at the intersection of code and creativity. Currently building with Next.js + PayloadCMS · graduating from a Master's in Arts Education at Universidad Nacional de Colombia · keeping the forge burning."
 
 const DEFAULT_STATS = [
-  { statName: 'TypeScript',       value: 94 },
-  { statName: 'Next.js',          value: 91 },
-  { statName: 'React',            value: 90 },
-  { statName: 'PayloadCMS',       value: 88 },
-  { statName: 'Jazz Piano',       value: 85 },
-  { statName: 'Music Production', value: 80 },
+  { statName: 'Guitarra Eléctrica (Jazz y Metal Prog.)', value: 99 },
+  { statName: 'Producción Musical',                      value: 97 },
+  { statName: 'TypeScript',                              value: 94 },
+  { statName: 'Next.js',                                 value: 91 },
+  { statName: 'React',                                   value: 90 },
+  { statName: 'PayloadCMS',                              value: 89 },
 ]
 
 const DEFAULT_SOCIAL = [
