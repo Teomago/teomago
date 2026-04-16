@@ -144,6 +144,15 @@ body::before {
   --font-ui: var(--font-ui), sans-serif;
   --font-mono: var(--font-mono), monospace;
   --font-body: var(--font-mono), monospace;
+
+  /* Border radius */
+  --radius-sharp: 2px;
+
+  /* Glow shadows */
+  --shadow-glow-cyan:  0 8px 32px rgba(0, 212, 255, 0.18);
+  --shadow-glow-green: 0 8px 32px rgba(0, 255, 136, 0.18);
+  --shadow-glow-amber: 0 8px 32px rgba(255, 140, 0,   0.18);
+  --shadow-avatar:     0 0 40px rgba(0, 212, 255, 0.08), inset 0 0 40px rgba(0, 0, 0, 0.4);
 }
 
 .dark {

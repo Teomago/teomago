@@ -12,7 +12,7 @@ import {
 } from 'lucide-react'
 
 /* ------------------------------------------------------------------ */
-/* Icon registry — maps Payload icon value → Lucide component          */
+/* Icon registry                                                        */
 /* ------------------------------------------------------------------ */
 const ICONS: Record<string, LucideIcon> = {
   Code, Layers, Braces, Database, Server, Cloud, Cpu, Binary,
@@ -23,35 +23,15 @@ const ICONS: Record<string, LucideIcon> = {
 }
 
 /* ------------------------------------------------------------------ */
-/* Defaults                                                             */
+/* Accent variant — maps category → Tailwind class strings             */
 /* ------------------------------------------------------------------ */
-const DEFAULT_STATS = [
-  { id: '1', name: 'TypeScript',        level: 94, category: 'frontend',          icon: 'Code'          },
-  { id: '2', name: 'Next.js',           level: 91, category: 'frontend',          icon: 'Layers'        },
-  { id: '3', name: 'React',             level: 90, category: 'frontend',          icon: 'Braces'        },
-  { id: '4', name: 'PayloadCMS',        level: 88, category: 'backend',           icon: 'Database'      },
-  { id: '5', name: 'Java / Spring',     level: 72, category: 'backend',           icon: 'Server'        },
-  { id: '6', name: 'Jazz Piano',        level: 85, category: 'music',             icon: 'Piano'         },
-  { id: '7', name: 'Music Production',  level: 80, category: 'audio-engineering', icon: 'AudioWaveform' },
-  { id: '8', name: 'Sound Design',      level: 75, category: 'audio-engineering', icon: 'Waves'         },
-  { id: '9', name: 'Arts Education',    level: 88, category: 'music',             icon: 'GraduationCap' },
-]
+type AccentVariant = 'cyan' | 'green'
 
-/* ------------------------------------------------------------------ */
-/* Helpers                                                             */
-/* ------------------------------------------------------------------ */
-const ACCENT: Record<string, string> = {
-  frontend:            'var(--color-cyan)',
-  backend:             'var(--color-cyan)',
-  music:               'var(--color-green)',
-  'audio-engineering': 'var(--color-green)',
-}
-
-const GLOW: Record<string, string> = {
-  frontend:            'rgba(0,212,255,0.18)',
-  backend:             'rgba(0,212,255,0.18)',
-  music:               'rgba(0,255,136,0.18)',
-  'audio-engineering': 'rgba(0,255,136,0.18)',
+const CATEGORY_ACCENT: Record<string, AccentVariant> = {
+  frontend:            'cyan',
+  backend:             'cyan',
+  music:               'green',
+  'audio-engineering': 'green',
 }
 
 const CATEGORY_LABEL: Record<string, string> = {
@@ -61,92 +41,85 @@ const CATEGORY_LABEL: Record<string, string> = {
   'audio-engineering': 'Audio Eng',
 }
 
+/* Tailwind class maps — must be literal strings so JIT detects them */
+const ACCENT_TEXT   = { cyan: 'text-cyan',      green: 'text-green'      } as const
+const ACCENT_BG     = { cyan: 'bg-glow-cyan',   green: 'bg-glow-green'   } as const
+const ACCENT_BAR    = { cyan: 'bg-cyan',         green: 'bg-green'        } as const
+const ACCENT_SHADOW = { cyan: 'hover:shadow-glow-cyan', green: 'hover:shadow-glow-green' } as const
+const ACCENT_BORDER = { cyan: 'hover:border-cyan', green: 'hover:border-green' } as const
+
 /* ------------------------------------------------------------------ */
-/* Sub-component: stat card                                             */
+/* Defaults                                                             */
+/* ------------------------------------------------------------------ */
+const DEFAULT_STATS = [
+  { id: '1', name: 'TypeScript',       level: 94, category: 'frontend',          icon: 'Code'          },
+  { id: '2', name: 'Next.js',          level: 91, category: 'frontend',          icon: 'Layers'        },
+  { id: '3', name: 'React',            level: 90, category: 'frontend',          icon: 'Braces'        },
+  { id: '4', name: 'PayloadCMS',       level: 88, category: 'backend',           icon: 'Database'      },
+  { id: '5', name: 'Java / Spring',    level: 72, category: 'backend',           icon: 'Server'        },
+  { id: '6', name: 'Jazz Piano',       level: 85, category: 'music',             icon: 'Piano'         },
+  { id: '7', name: 'Music Production', level: 80, category: 'audio-engineering', icon: 'AudioWaveform' },
+  { id: '8', name: 'Sound Design',     level: 75, category: 'audio-engineering', icon: 'Waves'         },
+  { id: '9', name: 'Arts Education',   level: 88, category: 'music',             icon: 'GraduationCap' },
+]
+
+/* ------------------------------------------------------------------ */
+/* Stat card                                                            */
 /* ------------------------------------------------------------------ */
 function StatCard({ stat, index }: { stat: any; index: number }) {
   const ref    = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-60px' })
 
-  const color    = ACCENT[stat.category] ?? 'var(--color-cyan)'
-  const glow     = GLOW[stat.category]   ?? 'rgba(0,212,255,0.18)'
-  const pct      = Math.round((stat.level / 99) * 100)
-  const IconComp = ICONS[stat.icon] ?? Code
+  const variant   = CATEGORY_ACCENT[stat.category] ?? 'cyan'
+  const pct       = Math.round((stat.level / 99) * 100)
+  const IconComp  = ICONS[stat.icon] ?? Code
 
   return (
     <motion.div
       ref={ref}
       variants={{
-        hidden:   { opacity: 0, y: 20 },
-        visible:  { opacity: 1, y: 0, transition: { duration: 0.45, ease: 'easeOut' } },
+        hidden:  { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: 'easeOut' } },
       }}
       whileHover={{ x: -2, y: -4, rotate: -0.3, transition: { duration: 0.2 } }}
-      className="relative p-5 flex flex-col gap-4 cursor-default"
-      style={{
-        background:   'var(--color-surface)',
-        border:       '1px solid var(--color-border)',
-        borderRadius: '2px',
-        willChange:   'transform',
-      }}
-      onMouseEnter={e => {
-        const el = e.currentTarget as HTMLElement
-        el.style.borderColor = 'var(--color-border-glow)'
-        el.style.boxShadow   = `0 8px 32px ${glow}`
-      }}
-      onMouseLeave={e => {
-        const el = e.currentTarget as HTMLElement
-        el.style.borderColor = 'var(--color-border)'
-        el.style.boxShadow   = 'none'
-      }}
+      className={`relative p-5 flex flex-col gap-4 cursor-default
+                  bg-surface border border-border rounded-sharp
+                  hover:border-border-glow transition-all duration-200
+                  ${ACCENT_SHADOW[variant]}`}
+      style={{ willChange: 'transform' }}
     >
       {/* Icon + category pill */}
       <div className="flex items-start justify-between">
-        <IconComp size={18} style={{ color }} strokeWidth={1.5} />
-        <span
-          className="font-mono text-[9px] tracking-widest uppercase px-2 py-0.5"
-          style={{
-            color,
-            background:   glow,
-            border:       `1px solid ${color}22`,
-            borderRadius: '2px',
-          }}
-        >
+        <IconComp size={18} strokeWidth={1.5} className={ACCENT_TEXT[variant]} />
+        <span className={`font-mono text-[9px] tracking-widest uppercase px-2 py-0.5
+                          rounded-sharp border border-current/10
+                          ${ACCENT_TEXT[variant]} ${ACCENT_BG[variant]}`}>
           {CATEGORY_LABEL[stat.category] ?? stat.category}
         </span>
       </div>
 
-      {/* Name + level number */}
+      {/* Name + level */}
       <div className="flex items-end justify-between">
-        <span className="font-ui text-base" style={{ color: 'var(--color-foreground)' }}>
-          {stat.name}
-        </span>
-        <span
-          className="font-mono font-bold text-2xl leading-none"
-          style={{ color, textShadow: `0 0 20px ${glow}` }}
-        >
+        <span className="font-ui text-base text-foreground">{stat.name}</span>
+        <span className={`font-mono font-bold text-2xl leading-none ${ACCENT_TEXT[variant]}`}>
           {stat.level}
         </span>
       </div>
 
       {/* Progress bar */}
-      <div
-        className="relative h-1.5 rounded-full overflow-visible"
-        style={{ background: 'var(--color-surface-elevated)' }}
-      >
+      <div className="relative h-1.5 rounded-full overflow-visible bg-surface-elevated">
         <motion.div
-          className="absolute inset-y-0 left-0 rounded-full"
-          style={{ backgroundColor: color }}
+          className={`absolute inset-y-0 left-0 rounded-full ${ACCENT_BAR[variant]}`}
           initial={{ width: 0 }}
           animate={inView ? { width: `${pct}%` } : { width: 0 }}
           transition={{ duration: 1.1, ease: 'easeOut', delay: index * 0.06 }}
         />
         {inView && (
           <motion.div
-            className="absolute top-0 bottom-0 w-0.5 rounded-full"
+            className={`absolute top-0 bottom-0 w-0.5 rounded-full ${ACCENT_BAR[variant]}`}
             style={{
-              left:            `calc(${pct}% - 1px)`,
-              backgroundColor: color,
-              animation:       'glow-pulse 2.5s ease-in-out infinite',
+              left:      `calc(${pct}% - 1px)`,
+              animation: 'glow-pulse 2.5s ease-in-out infinite',
             }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -166,27 +139,18 @@ export function StatsSection({ stats }: { stats: any[] }) {
   const t    = useTranslations('stats')
 
   return (
-    <section className="py-24 border-b" style={{ borderColor: 'var(--color-border)' }}>
+    <section className="py-24 border-b border-border">
       <div className="container mx-auto px-6">
-        {/* Section header */}
         <div className="flex items-center gap-4 mb-14">
-          <span className="font-mono text-xs" style={{ color: 'var(--color-cyan)' }}>◈</span>
-          <h2
-            className="font-display font-black text-3xl tracking-tight"
-            style={{ color: 'var(--color-name)' }}
-          >
+          <span className="font-mono text-xs text-cyan">◈</span>
+          <h2 className="font-display font-black text-3xl tracking-tight text-name">
             {t('title')}
           </h2>
-          <span className="font-mono text-xs" style={{ color: 'var(--color-muted)' }}>
-            {t('subtitle')}
-          </span>
-          <div className="flex-1 h-px" style={{ background: 'var(--color-border)' }} />
-          <span className="font-mono text-xs" style={{ color: 'var(--color-muted)' }}>
-            {t('count', { n: data.length })}
-          </span>
+          <span className="font-mono text-xs text-muted">{t('subtitle')}</span>
+          <div className="flex-1 h-px bg-border" />
+          <span className="font-mono text-xs text-muted">{t('count', { n: data.length })}</span>
         </div>
 
-        {/* Grid */}
         <motion.div
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
           variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.07 } } }}
