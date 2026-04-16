@@ -215,8 +215,13 @@ export const Quests: CollectionConfig = {
       name: 'link',
       type: 'text',
       admin: {
-        description: 'Live URL or GitHub link.',
+        description: 'Live URL or GitHub link. Must start with https://',
         placeholder: 'https://...',
+      },
+      validate: (value: string | null | undefined) => {
+        if (!value) return true
+        if (/^https?:\/\//i.test(value)) return true
+        return 'URL must start with https:// (e.g. https://fjpp.vercel.app)'
       },
     },
   ],

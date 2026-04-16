@@ -70,6 +70,11 @@ const DEFAULT_QUESTS = [
 /* ------------------------------------------------------------------ */
 /* Helper                                                               */
 /* ------------------------------------------------------------------ */
+function normalizeUrl(url: string | null | undefined): string | null {
+  if (!url) return null
+  return /^https?:\/\//i.test(url) ? url : `https://${url}`
+}
+
 function extractText(richText: any): string {
   if (!richText) return ''
   if (typeof richText === 'string') return richText
@@ -171,9 +176,9 @@ function QuestCard({
         )}
 
         {/* Link */}
-        {quest.link && (
+        {normalizeUrl(quest.link) && (
           <a
-            href={quest.link}
+            href={normalizeUrl(quest.link)!}
             target="_blank"
             rel="noopener noreferrer"
             className={`mt-auto font-mono text-xs tracking-widest uppercase
