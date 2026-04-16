@@ -7,7 +7,8 @@ import { useTranslations } from 'next-intl'
 /* ------------------------------------------------------------------ */
 /* Defaults                                                             */
 /* ------------------------------------------------------------------ */
-const DEFAULT_NAME = 'Mateo Ibagón'
+const DEFAULT_NAME = 'teomago'
+const DEFAULT_PROPER_NAME = 'Mateo Ibagón'
 const DEFAULT_ROLE = 'Full-Stack Developer · Musician · Arts Educator'
 const DEFAULT_BIO =
   "Full-stack developer, jazz musician, and arts educator forging tools at the intersection of code and creativity. Currently building with Next.js + PayloadCMS · graduating from a Master's in Arts Education at Universidad Nacional de Colombia · keeping the forge burning."
@@ -265,6 +266,16 @@ export function HeroSection({
             >
               {name}
             </motion.h1>
+
+            {/* Proper name subtitle */}
+            <motion.p
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="font-mono text-sm tracking-[0.15em] text-muted uppercase"
+            >
+              {hero?.properName || DEFAULT_PROPER_NAME}
+            </motion.p>
 
             <motion.div
               initial={{ opacity: 0, y: 12 }}

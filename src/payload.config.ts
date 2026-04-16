@@ -15,6 +15,8 @@ import { Quests } from './collections/Quests'
 import { Stats } from './collections/Stats'
 import { Campaigns } from './collections/Campaigns'
 import { Hero } from './globals/Hero'
+import { Skills } from './globals/Skills'
+import { SiteSettings } from './globals/SiteSettings'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 
 const filename = fileURLToPath(import.meta.url)
@@ -53,24 +55,6 @@ export default buildConfig({
     fallbackLanguage: 'es',
   },
 
-  // Temporarily commented out until BREVO credentials are populated to prevent EAUTH errors on boot.
-  /*
-  ...(process.env.BREVO_API_KEY ? {
-    email: nodemailerAdapter({
-      defaultFromAddress: process.env.BREVO_SENDER_EMAIL || 'noreply@teomago.com',
-      defaultFromName: process.env.BREVO_SENDER_NAME || 'Teomago',
-      transportOptions: {
-        host: 'smtp-relay.brevo.com',
-        port: 587,
-        auth: {
-          user: process.env.BREVO_SENDER_EMAIL,
-          pass: process.env.BREVO_API_KEY,
-        },
-      },
-    }),
-  } : {}),
-  */
-
   plugins: [
     s3Storage({
       collections: {
@@ -91,9 +75,27 @@ export default buildConfig({
       globals: ['hero'],
       uploadsCollection: 'media',
       tabbedUI: true,
-      generateTitle: ({ doc }) =>
-        `Teomago — ${(doc as any)?.title ?? (doc as any)?.name ?? 'Portfolio'}`,
-      generateDescription: ({ doc }) => (doc as any)?.role ?? '',
+      generateTitle: async ({ doc, req }) => {
+        try {
+          const settings = await req.payload.findGlobal({ slug: 'site-settings' })
+          const siteName = settings?.siteName ?? 'Teomago'
+          const suffix = (doc as any)?.title ?? (doc as any)?.name ?? (doc as any)?.properName ?? ''
+          return suffix ? `${siteName} — ${suffix}` : siteName
+        } catch {
+          return 'Teomago'
+        }
+      },
+      generateDescription: async ({ doc, req }) => {
+        try {
+          const settings = await req.payload.findGlobal({
+            slug: 'site-settings',
+            locale: (req as any).locale ?? 'es',
+          })
+          return (doc as any)?.role ?? settings?.siteTagline ?? ''
+        } catch {
+          return ''
+        }
+      },
       generateURL: ({ doc, collectionSlug }) =>
         collectionSlug === 'quests'
           ? `${process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'}/quests/${(doc as any)?.slug}`
@@ -101,7 +103,7 @@ export default buildConfig({
     }),
   ],
 
-  globals: [Hero],
+  globals: [Hero, Skills, SiteSettings],
   collections: [Users, Media, Quests, Stats, Campaigns],
   sharp,
   typescript: {

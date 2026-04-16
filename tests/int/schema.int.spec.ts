@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll } from 'vitest'
+import { describe, it, expect, beforeAll, afterAll } from 'vitest'
 import payload from 'payload'
 import config from '@/payload.config'
 
@@ -18,28 +18,40 @@ const mockDesc = {
         version: 1,
       },
     ],
-    direction: 'ltr',
-    format: '',
+    direction: 'ltr' as const,
+    format: '' as const,
     indent: 0,
     version: 1,
   },
 }
 
 beforeAll(async () => {
-  await payload.init({ config, local: true })
+  await payload.init({ config })
 }, 60000)
+
+afterAll(async () => {
+  try {
+    await payload.delete({ collection: 'quests', where: { id: { exists: true } } })
+    await payload.delete({ collection: 'stats', where: { id: { exists: true } } })
+    await payload.delete({ collection: 'campaigns', where: { id: { exists: true } } })
+  } catch {
+    // ignore cleanup errors
+  }
+})
 
 describe('Payload schema — Phase 2A', () => {
   it('creates a Quest document', async () => {
     const quest = await payload.create({
       collection: 'quests',
+      draft: false,
       data: {
         title: 'Test Quest',
         category: 'tech',
         questStatus: 'completed',
         sortOrder: 1,
+        _status: 'published',
         description: mockDesc,
-      },
+      } as any,
     })
     expect(quest.id).toBeDefined()
     expect(quest.slug).toBe('test-quest')
@@ -48,24 +60,28 @@ describe('Payload schema — Phase 2A', () => {
   it('rejects duplicate Quest slugs', async () => {
     await payload.create({
       collection: 'quests',
+      draft: false,
       data: {
         title: 'Duplicate Quest',
         slug: 'duplicate-quest',
         category: 'tech',
         questStatus: 'completed',
         sortOrder: 99,
+        _status: 'published',
         description: mockDesc,
       },
     })
     await expect(
       payload.create({
         collection: 'quests',
+      draft: false,
         data: {
           title: 'Another Quest',
           slug: 'duplicate-quest',
           category: 'tech',
           questStatus: 'completed',
           sortOrder: 99,
+          _status: 'published',
           description: mockDesc,
         },
       })
@@ -110,5 +126,25 @@ describe('Payload schema — Phase 2A', () => {
     })
     expect(campaign.isCurrent).toBe(true)
     expect(campaign.endDate).toBeNull()
+  })
+})
+
+describe('Skills global', () => {
+  it('returns groups array in es locale', async () => {
+    const skills = await payload.findGlobal({ slug: 'skills', locale: 'es' })
+    expect(Array.isArray(skills.groups)).toBe(true)
+  })
+
+  it('returns groups array in en locale', async () => {
+    const skills = await payload.findGlobal({ slug: 'skills', locale: 'en' })
+    expect(Array.isArray(skills.groups)).toBe(true)
+  })
+})
+
+describe('SiteSettings global', () => {
+  it('returns a non-empty siteName', async () => {
+    const settings = await payload.findGlobal({ slug: 'site-settings' })
+    expect(typeof settings.siteName).toBe('string')
+    expect(settings.siteName.length).toBeGreaterThan(0)
   })
 })

@@ -95,9 +95,13 @@ export interface Config {
   fallbackLocale: ('false' | 'none' | 'null') | false | null | ('es' | 'en') | ('es' | 'en')[];
   globals: {
     hero: Hero;
+    skills: Skill;
+    'site-settings': SiteSetting;
   };
   globalsSelect: {
     hero: HeroSelect<false> | HeroSelect<true>;
+    skills: SkillsSelect<false> | SkillsSelect<true>;
+    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
   };
   locale: 'es' | 'en';
   widgets: {
@@ -164,6 +168,18 @@ export interface Media {
    * Alt text for accessibility and SEO.
    */
   alt: string;
+  /**
+   * Optional caption displayed below the image.
+   */
+  caption?: string | null;
+  /**
+   * Photo credit, e.g. "Photo by Unsplash".
+   */
+  credit?: string | null;
+  /**
+   * Base64 ThumbHash for blur placeholder. Auto-generated on upload.
+   */
+  thumbhash?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -460,7 +476,7 @@ export interface Quest {
       }[]
     | null;
   /**
-   * Live URL or GitHub link.
+   * Live URL or GitHub link. Must start with https://
    */
   link?: string | null;
   meta?: {
@@ -689,6 +705,9 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
+  caption?: T;
+  credit?: T;
+  thumbhash?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -849,9 +868,13 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 export interface Hero {
   id: number;
   /**
-   * Your full name.
+   * Handle / nickname — displayed as the large H1.
    */
   name: string;
+  /**
+   * Full legal name — displayed as monospace subtitle below the handle.
+   */
+  properName?: string | null;
   /**
    * Your headline role.
    */
@@ -911,11 +934,64 @@ export interface Hero {
   createdAt?: string | null;
 }
 /**
+ * Structured skills inventory displayed in the Skills Panel alongside Campaigns.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "skills".
+ */
+export interface Skill {
+  id: number;
+  groups?:
+    | {
+        groupName: string;
+        categories?:
+          | {
+              categoryName: string;
+              items?:
+                | {
+                    itemName: string;
+                    /**
+                     * 1–99 optional skill level.
+                     */
+                    level?: number | null;
+                    id?: string | null;
+                  }[]
+                | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Stable SEO and branding settings. Decoupled from content that can change over time.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings".
+ */
+export interface SiteSetting {
+  id: number;
+  /**
+   * Site name used in SEO titles (e.g. "Teomago — Portfolio").
+   */
+  siteName: string;
+  /**
+   * Default meta description when page-specific description is unavailable.
+   */
+  siteTagline?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "hero_select".
  */
 export interface HeroSelect<T extends boolean = true> {
   name?: T;
+  properName?: T;
   role?: T;
   bio?: T;
   avatar?: T;
@@ -941,6 +1017,45 @@ export interface HeroSelect<T extends boolean = true> {
         description?: T;
         image?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "skills_select".
+ */
+export interface SkillsSelect<T extends boolean = true> {
+  groups?:
+    | T
+    | {
+        groupName?: T;
+        categories?:
+          | T
+          | {
+              categoryName?: T;
+              items?:
+                | T
+                | {
+                    itemName?: T;
+                    level?: T;
+                    id?: T;
+                  };
+              id?: T;
+            };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings_select".
+ */
+export interface SiteSettingsSelect<T extends boolean = true> {
+  siteName?: T;
+  siteTagline?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

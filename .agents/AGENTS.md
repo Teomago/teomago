@@ -11,7 +11,8 @@ All agents (Gemini, Claude, or any future AI) MUST adhere to the following stand
 3.  **Debugging (`systematic-debugging`):** No fixes without root cause investigation. Follow the 4-phase process.
 4.  **Verification (`verification-before-completion`):** No completion claims without fresh, evidence-based verification.
 5.  **Brainstorming (`brainstorming`):** No implementation until a design is approved.
-6.  **Documentation (`find-docs`):** Use the `find-docs` skill for up-to-date library information.
+6.  **Frontend Design (`frontend-design.md`):** Mandatory for Phase 1 on all UI/UX tasks. Prevents generic "AI aesthetic" by enforcing the project's specific design language.
+7.  **Documentation (`find-docs`):** Use the `find-docs` skill for up-to-date library information.
 
 ---
 
@@ -19,22 +20,23 @@ All agents (Gemini, Claude, or any future AI) MUST adhere to the following stand
 
 The pipeline is divided into 6 phases, each with a clear responsibility. Any capable agent can take any role as directed by Teo.
 
-1.  **Phase 1: Specification (Role: Designer)**
+1.  **Phase 1: Specification & Blueprint (Role: Designer)**
     - Reads `BACKLOG.md` and `PROJECT_STATE.md`.
     - Follows `brainstorming.md` to refine the feature with Teo.
-    - Writes the technical RFC at `.agents/specs/RFC-[N]-[short-name].md`.
+    - Writes a **Deep RFC** at `.agents/specs/RFC-[N]-[short-name].md`.
+    - **Blueprint Requirement:** The RFC must include a full "File Impact Map" and "Interface Definitions" (Props, Hooks, State logic) using the `writing-plans` skill logic. It must define the **TDD Strategy** (what to test) before any code is written.
     - Does NOT touch source code.
 
 2.  **Phase 2: Audit (Role: Auditor)**
     - Reads the active RFC and `PROJECT_STATE.md`.
-    - Audits the RFC against TDD, Planning, and security standards.
+    - Audits the RFC's architectural logic, type safety, and security.
     - Writes the risk report at `.agents/audits/RFC-[N]-audit.md`.
-    - **Teo's Feedback:** Teo reviews the audit and adds comments (accept/reject/modify).
+    - **Verification:** Confirm the RFC is deep enough to implement without further "invention."
 
-3.  **Phase 3: Decision (Role: Auditor + Designer + Teo)**
+3.  **Phase 3: Execution Plan (Role: Auditor + Designer + Teo)**
     - **Auditor:** Drafts `.agents/decisions/RFC-[N]-decision.md` integrating Teo's feedback.
-    - **Designer:** Performs a "soft review" of the decision file to ensure it doesn't break the original design intent.
-    - **Decision Content:** MUST be a valid **Implementation Plan** following the `planning.md` format (including TDD test code).
+    - **Designer:** Converts the RFC Blueprint into a **Step-by-Step Task List** following the `planning.md` format.
+    - **Content:** Adds granular checkboxes, exact shell commands, and draft commit messages.
     - **Teo:** Provides final approval.
 
 4.  **Phase 4: Execution (Role: Executor)**

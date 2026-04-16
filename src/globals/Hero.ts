@@ -15,8 +15,15 @@ export const Hero: GlobalConfig = {
       name: 'name',
       type: 'text',
       required: true,
+      defaultValue: 'teomago',
+      admin: { description: 'Handle / nickname — displayed as the large H1.' },
+    },
+    {
+      name: 'properName',
+      type: 'text',
+      localized: false,
       defaultValue: 'Mateo Ibagón',
-      admin: { description: 'Your full name.' },
+      admin: { description: 'Full legal name — displayed as monospace subtitle below the handle.' },
     },
     {
       name: 'role',
@@ -31,17 +38,13 @@ export const Hero: GlobalConfig = {
       type: 'richText',
       required: true,
       localized: true,
-      admin: {
-        description: 'Your bio. Displayed in the Hero section.',
-      },
+      admin: { description: 'Your bio. Displayed in the Hero section.' },
     },
     {
       name: 'avatar',
       type: 'upload',
       relationTo: 'media',
-      admin: {
-        description: 'Profile photo. Falls back to the default mockup image.',
-      },
+      admin: { description: 'Profile photo. Falls back to the default mockup image.' },
     },
     {
       name: 'stats',

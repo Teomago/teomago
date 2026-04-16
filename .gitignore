@@ -53,5 +53,8 @@ node_modules/
 /.agents/context/payloadcms
 /.agents/context/Teomago Profile
 
+# examples
+/.agents/examples/reference
+
 # local dev scripts (dangerous — not for repo)
 drop.cjs

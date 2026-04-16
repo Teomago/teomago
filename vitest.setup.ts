@@ -1,4 +1,24 @@
-// Any setup scripts you might need go here
+import { vi } from 'vitest'
 
-// Load .env files
-import 'dotenv/config'
+// Mock IntersectionObserver
+class IntersectionObserverMock {
+  root = null
+  rootMargin = ''
+  thresholds = []
+  disconnect = vi.fn()
+  observe = vi.fn()
+  takeRecords = vi.fn()
+  unobserve = vi.fn()
+}
+
+Object.defineProperty(window, 'IntersectionObserver', {
+  writable: true,
+  configurable: true,
+  value: IntersectionObserverMock,
+})
+
+Object.defineProperty(global, 'IntersectionObserver', {
+  writable: true,
+  configurable: true,
+  value: IntersectionObserverMock,
+})

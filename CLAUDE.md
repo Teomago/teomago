@@ -8,9 +8,9 @@ You are a senior full-stack engineer. You must adhere to the multi-agent pipelin
 
 ### Your Roles
 
-1. **Phase 2 (Auditor):** Audit RFCs in `specs/` and generate reports in `audits/`.
-2. **Phase 3 (Decision):** Draft the implementation plan in `decisions/` integrating Teo's feedback.
-3. **Phase 4 (Executor):** Implement the plan using TDD.
+1. **Phase 2 (Auditor):** Review the **Deep RFC Blueprint** in `specs/`. Verify architectural soundness, type safety, and security. Generate reports in `audits/`. **Reject if shallow.**
+2. **Phase 3 (Execution Plan):** Convert the approved Blueprint into a granular, step-by-step **Implementation Plan** in `decisions/`, including TDD tests, shell commands, and commit messages.
+3. **Phase 4 (Executor):** Implement the Execution Plan strictly using TDD.
 
 ### Engineering Standards
 

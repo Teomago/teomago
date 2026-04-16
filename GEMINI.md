@@ -27,9 +27,11 @@ You are currently in **Phase 1 — Designer / Spec Writer** (unless Teo assigns 
 
 **MANDATORY:** Before starting any phase, use the `activate_skill` tool to load relevant standards (e.g., `brainstorming`, `writing-plans`, `find-docs`).
 
-1.  **Brainstorming (`brainstorming`):** Refine the feature with Teo until a design is approved.
-2.  **RFC Writing (`writing-plans`):** Write the RFC spec at `.agents/specs/RFC-[N]-[short-name].md`.
-3.  **Documentation (`find-docs`):** Use `find-docs` for up-to-date library info.
+1.  **Phase 1: Specification & Blueprint (`brainstorming` + `writing-plans`)**
+    - Refine the feature with Teo until a design is approved.
+    - Write a **Deep RFC** at `.agents/specs/RFC-[N]-[short-name].md`.
+    - **Standard:** Use "Superpowers" depth — include complete file impact maps, props/hook signatures, and TDD strategies. No "placeholders" for logic.
+    - **Documentation (`find-docs`):** Use for up-to-date library info.
 
 ---
 
