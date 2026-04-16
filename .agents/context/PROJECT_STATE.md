@@ -4,7 +4,7 @@
 Personal portfolio development.
 
 ## Current Status
-Payload CMS 3.x initialized with Tailwind v4, shadcn/ui, and multilingual (ES/EN) support.
+Payload CMS 3.x initialized with Tailwind v4, shadcn/ui, and multilingual (ES/EN) support. Media upgrades (WebP, ThumbHash), Hero identity, and Skills panel implemented.
 
 ## Architecture
 - **Framework:** Next.js 16 (App Router)
@@ -18,7 +18,9 @@ Payload CMS 3.x initialized with Tailwind v4, shadcn/ui, and multilingual (ES/EN
 ## Completed Cycles
 - **Cycle 0:** Agent pipeline setup.
 - **Cycle 1 (RFC-001):** Project Bootstrap & Services Setup.
+- **Cycle 2 (RFC-002):** Core Schema & Design (Stats, Quests, Campaigns).
+- **Cycle 3 (RFC-003):** Media Upgrades + Hero Identity + Skills Panel.
 
 ## Next Steps
-- Define core schema (Projects, Skills, Experience).
-- RFC-002: UI/UX Design (Tech Gamer Musician Vibe).
+- Implement Detail pages for Quests (projects).
+- Refine interactive gamification (Option B).
