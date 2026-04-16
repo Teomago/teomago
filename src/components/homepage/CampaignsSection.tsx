@@ -164,29 +164,27 @@ export function CampaignsSection({ campaigns }: { campaigns: any[] }) {
   const t    = useTranslations('campaigns')
 
   return (
-    <section className="py-24">
-      <div className="container mx-auto px-6">
-        <div className="flex items-center gap-4 mb-14">
-          <span className="font-mono text-xs text-amber">◈</span>
-          <h2 className="font-display font-black text-3xl tracking-tight text-name">{t('title')}</h2>
-          <span className="font-mono text-xs text-muted">{t('subtitle')}</span>
-          <div className="flex-1 h-px bg-border" />
-          <span className="font-mono text-xs text-muted">{t('count', { n: data.length })}</span>
-        </div>
-
-        <div className="max-w-3xl">
-          {data.map((campaign, i) => (
-            <CampaignEntry
-              key={campaign.id ?? i}
-              campaign={campaign}
-              index={i}
-              isLast={i === data.length - 1}
-              presentLabel={t('present')}
-              rewardsLabel={t('rewards')}
-            />
-          ))}
-        </div>
+    <div className="py-12 lg:py-0">
+      <div className="flex items-center gap-4 mb-14">
+        <span className="font-mono text-xs text-amber">◈</span>
+        <h2 className="font-display font-black text-3xl tracking-tight text-name truncate">{t('title')}</h2>
+        <span className="hidden md:inline font-mono text-xs text-muted truncate">{t('subtitle')}</span>
+        <div className="flex-1 h-px bg-border" />
+        <span className="hidden sm:inline font-mono text-xs text-muted whitespace-nowrap">{t('count', { n: data.length })}</span>
       </div>
-    </section>
+
+      <div className="max-w-3xl">
+        {data.map((campaign, i) => (
+          <CampaignEntry
+            key={campaign.id ?? i}
+            campaign={campaign}
+            index={i}
+            isLast={i === data.length - 1}
+            presentLabel={t('present')}
+            rewardsLabel={t('rewards')}
+          />
+        ))}
+      </div>
+    </div>
   )
 }

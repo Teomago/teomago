@@ -209,7 +209,7 @@ export function QuestsSection({ quests, defaultCover }: { quests: any[]; default
           <h2 className="font-display font-black text-3xl tracking-tight text-name">{t('title')}</h2>
           <span className="font-mono text-xs text-muted">{t('subtitle')}</span>
           <div className="flex-1 h-px bg-border" />
-          <span className="font-mono text-xs text-muted">{t('count', { n: data.length })}</span>
+          <span className="hidden sm:inline font-mono text-xs text-muted whitespace-nowrap">{t('count', { n: data.length })}</span>
         </div>
 
         <motion.div

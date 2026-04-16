@@ -21,16 +21,18 @@ export function SkillsPanel({ skills }: { skills: Skill }) {
   const groups = skills?.groups ?? []
 
   return (
-    <section className="py-24 border-b border-border bg-void-dark/50">
-      <div className="container mx-auto px-6">
-        {/* Section header: Void Forge Aesthetic */}
-        <div className="flex items-center gap-3 mb-10">
-          <span className="font-mono text-xs text-cyan animate-pulse">◈</span>
-          <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-muted">
-            SYSTEM_SKILLS_v2.1
-          </span>
-          <div className="flex-1 h-px bg-border/50" />
-        </div>
+    <div className="py-12 lg:py-0">
+      {/* Section header: Void Forge Aesthetic */}
+      <div className="flex items-center gap-3 mb-10">
+        <span className="font-mono text-xs text-cyan animate-pulse">◈</span>
+        <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-muted">
+          SYSTEM_SKILLS
+        </span>
+        <div className="flex-1 h-px bg-border/50" />
+        <span className="hidden sm:inline font-mono text-[10px] tracking-[0.4em] uppercase text-muted/50">
+          v2.1
+        </span>
+      </div>
 
         <motion.div
           variants={containerVariants}
@@ -78,7 +80,6 @@ export function SkillsPanel({ skills }: { skills: Skill }) {
             </div>
           ))}
         </motion.div>
-      </div>
-    </section>
+    </div>
   )
 }

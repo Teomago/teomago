@@ -172,7 +172,7 @@ export function HeroSection({
             {t('character')}
           </span>
           <div className="flex-1 h-px bg-border" />
-          <span className="font-mono text-xs text-border-glow">TEOMAGO_v2.0</span>
+          <span className="hidden sm:inline font-mono text-xs text-border-glow whitespace-nowrap">TEOMAGO_v2.0</span>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">

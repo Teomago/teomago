@@ -64,14 +64,18 @@ export default async function HomePage({
       <StatsSection stats={statsResult.docs} />
       <QuestsSection quests={questsResult.docs} defaultCover={DEFAULT_AVATAR} />
       
-      <div className="grid grid-cols-1 lg:grid-cols-10 gap-0 lg:gap-8">
-        <div className="lg:col-span-6">
-          <CampaignsSection campaigns={campaignsResult.docs} />
+      <section className="py-24 border-b border-border bg-void-dark/30">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-10 gap-12 lg:gap-16">
+            <div className="lg:col-span-6">
+              <CampaignsSection campaigns={campaignsResult.docs} />
+            </div>
+            <div className="lg:col-span-4">
+              <SkillsPanel skills={skillsResult} />
+            </div>
+          </div>
         </div>
-        <div className="lg:col-span-4">
-          <SkillsPanel skills={skillsResult} />
-        </div>
-      </div>
+      </section>
     </main>
   )
 }
