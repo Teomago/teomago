@@ -8,9 +8,18 @@
   "hero": {
     "viewQuest": "View Quest",
     "level": "Level",
-    "character": "Character Sheet"
+    "character": "Character Sheet",
+    "playerLabel": "// PLAYER_ONE",
+    "bioLabel": "BIO",
+    "coreStats": "CORE STATS"
+  },
+  "stats": {
+    "title": "ATTRIBUTES",
+    "subtitle": "/ ATTRIBUTES"
   },
   "quests": {
+    "title": "QUESTS",
+    "subtitle": "/ QUESTS",
     "status": {
       "completed": "Completed",
       "in-progress": "In Progress",
@@ -19,6 +28,8 @@
     "viewProject": "View Project"
   },
   "campaigns": {
+    "title": "CAMPAIGNS",
+    "subtitle": "/ CAMPAIGNS",
     "present": "Present",
     "rewards": "Rewards Earned"
   }

@@ -1,6 +1,7 @@
 'use client'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import { useTranslations } from 'next-intl'
 
 /* ------------------------------------------------------------------ */
 /* Defaults                                                             */
@@ -114,10 +115,12 @@ function QuestCard({
   quest,
   defaultCover,
   featured,
+  viewProjectLabel,
 }: {
   quest: any
   defaultCover: string
   featured: boolean
+  viewProjectLabel: string
 }) {
   const coverUrl =
     quest.coverImage?.url
@@ -237,7 +240,7 @@ function QuestCard({
             onMouseEnter={e => ((e.currentTarget as HTMLElement).style.opacity = '0.7')}
             onMouseLeave={e => ((e.currentTarget as HTMLElement).style.opacity = '1')}
           >
-            <span>Ver proyecto</span>
+            <span>{viewProjectLabel}</span>
             <span>→</span>
           </a>
         )}
@@ -257,6 +260,7 @@ export function QuestsSection({
   defaultCover: string
 }) {
   const data = quests?.length ? quests : DEFAULT_QUESTS
+  const t    = useTranslations('quests')
 
   return (
     <section className="py-24 border-b" style={{ borderColor: 'var(--color-border)' }}>
@@ -265,9 +269,9 @@ export function QuestsSection({
         <div className="flex items-center gap-4 mb-14">
           <span className="font-mono text-xs" style={{ color: 'var(--color-green)' }}>◈</span>
           <h2 className="font-display font-black text-3xl tracking-tight" style={{ color: 'var(--color-name)' }}>
-            MISIONES
+            {t('title')}
           </h2>
-          <span className="font-mono text-xs" style={{ color: 'var(--color-muted)' }}>/ QUESTS</span>
+          <span className="font-mono text-xs" style={{ color: 'var(--color-muted)' }}>{t('subtitle')}</span>
           <div className="flex-1 h-px" style={{ background: 'var(--color-border)' }} />
           <span className="font-mono text-xs" style={{ color: 'var(--color-muted)' }}>
             {data.length} entries
@@ -288,6 +292,7 @@ export function QuestsSection({
               quest={quest}
               defaultCover={defaultCover || DEFAULT_COVER}
               featured={!!quest.featured}
+              viewProjectLabel={t('viewProject')}
             />
           ))}
         </motion.div>

@@ -8,9 +8,18 @@
   "hero": {
     "viewQuest": "Ver Misión",
     "level": "Nivel",
-    "character": "Hoja de Personaje"
+    "character": "Hoja de Personaje",
+    "playerLabel": "// JUGADOR_UNO",
+    "bioLabel": "BIO",
+    "coreStats": "ATRIBUTOS BASE"
+  },
+  "stats": {
+    "title": "ATRIBUTOS",
+    "subtitle": "/ ATTRIBUTES"
   },
   "quests": {
+    "title": "MISIONES",
+    "subtitle": "/ QUESTS",
     "status": {
       "completed": "Completada",
       "in-progress": "En Progreso",
@@ -19,6 +28,8 @@
     "viewProject": "Ver Proyecto"
   },
   "campaigns": {
+    "title": "CAMPAÑAS",
+    "subtitle": "/ CAMPAIGNS",
     "present": "Presente",
     "rewards": "Logros Obtenidos"
   }

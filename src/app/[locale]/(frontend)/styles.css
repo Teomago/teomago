@@ -139,11 +139,11 @@ body::before {
   --color-glow-green: rgba(0, 255, 136, 0.10);
   --color-glow-amber: rgba(255, 140, 0, 0.10);
 
-  /* Typography — body reuses Chakra Petch (HUD-consistent, no serif) */
+  /* Typography — body uses JetBrains Mono (user-preferred, code aesthetic) */
   --font-display: var(--font-display), sans-serif;
   --font-ui: var(--font-ui), sans-serif;
   --font-mono: var(--font-mono), monospace;
-  --font-body: var(--font-ui), sans-serif;
+  --font-body: var(--font-mono), monospace;
 }
 
 .dark {

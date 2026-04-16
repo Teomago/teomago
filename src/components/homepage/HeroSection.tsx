@@ -2,6 +2,7 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import Image from 'next/image'
+import { useTranslations } from 'next-intl'
 
 /* ------------------------------------------------------------------ */
 /* Defaults — shown when CMS fields are empty                          */
@@ -138,6 +139,8 @@ export function HeroSection({
   hero: any
   defaultAvatar: string
 }) {
+  const t = useTranslations('hero')
+
   const avatarUrl =
     hero?.avatar?.url
       ? `${process.env.NEXT_PUBLIC_SERVER_URL ?? ''}${hero.avatar.url}`
@@ -180,7 +183,7 @@ export function HeroSection({
         >
           <span style={{ color: 'var(--color-cyan)' }} className="font-mono text-xs">◈</span>
           <span className="font-mono text-xs tracking-[0.3em] uppercase" style={{ color: 'var(--color-muted)' }}>
-            CHARACTER SHEET
+            {t('character')}
           </span>
           <div className="flex-1 h-px" style={{ background: 'var(--color-border)' }} />
           <span className="font-mono text-xs" style={{ color: 'var(--color-border-glow)' }}>
@@ -251,7 +254,7 @@ export function HeroSection({
               <div className="flex items-center gap-2 mb-4">
                 <span className="font-mono text-[10px] tracking-[0.25em] uppercase" style={{ color: 'var(--color-green)' }}>◈</span>
                 <span className="font-mono text-[10px] tracking-[0.25em] uppercase" style={{ color: 'var(--color-muted)' }}>
-                  CORE STATS
+                  {t('coreStats')}
                 </span>
               </div>
               {stats.slice(0, 6).map((stat: any, i: number) => {
@@ -282,7 +285,7 @@ export function HeroSection({
               className="font-mono text-xs tracking-[0.2em] uppercase"
               style={{ color: 'var(--color-muted)' }}
             >
-              // PLAYER_ONE
+              {t('playerLabel')}
             </motion.p>
 
             {/* Name */}
@@ -329,7 +332,7 @@ export function HeroSection({
                 className="absolute -top-2.5 left-4 px-2 font-mono text-[10px] tracking-widest uppercase"
                 style={{ color: 'var(--color-muted)', background: 'var(--color-void)' }}
               >
-                BIO
+                {t('bioLabel')}
               </div>
               <p className="font-body text-lg leading-relaxed" style={{ color: 'var(--color-foreground)' }}>
                 {bio}

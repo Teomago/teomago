@@ -1,6 +1,7 @@
 'use client'
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
+import { useTranslations } from 'next-intl'
 
 /* ------------------------------------------------------------------ */
 /* Defaults                                                             */
@@ -104,6 +105,7 @@ function CampaignEntry({
 }) {
   const ref    = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-60px' })
+  const t      = useTranslations('campaigns')
   const color  = DOT_COLORS[index % DOT_COLORS.length]
   const desc   = extractText(campaign.description) || campaign.description || ''
 
@@ -181,7 +183,7 @@ function CampaignEntry({
         {campaign.questRewards?.length > 0 && (
           <div className="flex flex-col gap-1">
             <span className="font-mono text-[9px] tracking-[0.2em] uppercase mb-1" style={{ color: 'var(--color-muted)' }}>
-              ◈ Logros
+              ◈ {t('rewards')}
             </span>
             {campaign.questRewards.map((reward: any, i: number) => (
               <div key={i} className="flex items-center gap-2">
@@ -203,6 +205,7 @@ function CampaignEntry({
 /* ------------------------------------------------------------------ */
 export function CampaignsSection({ campaigns }: { campaigns: any[] }) {
   const data = campaigns?.length ? campaigns : DEFAULT_CAMPAIGNS
+  const t    = useTranslations('campaigns')
 
   return (
     <section className="py-24" style={{ borderColor: 'var(--color-border)' }}>
@@ -211,9 +214,9 @@ export function CampaignsSection({ campaigns }: { campaigns: any[] }) {
         <div className="flex items-center gap-4 mb-14">
           <span className="font-mono text-xs" style={{ color: 'var(--color-amber)' }}>◈</span>
           <h2 className="font-display font-black text-3xl tracking-tight" style={{ color: 'var(--color-name)' }}>
-            CAMPAÑAS
+            {t('title')}
           </h2>
-          <span className="font-mono text-xs" style={{ color: 'var(--color-muted)' }}>/ CAMPAIGNS</span>
+          <span className="font-mono text-xs" style={{ color: 'var(--color-muted)' }}>{t('subtitle')}</span>
           <div className="flex-1 h-px" style={{ background: 'var(--color-border)' }} />
           <span className="font-mono text-xs" style={{ color: 'var(--color-muted)' }}>
             {data.length} entries

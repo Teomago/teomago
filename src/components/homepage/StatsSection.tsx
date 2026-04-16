@@ -1,6 +1,7 @@
 'use client'
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
+import { useTranslations } from 'next-intl'
 import {
   Code, Layers, Braces, Database, Server, Cloud, Cpu, Binary,
   FileCode, Package, Globe, GitBranch, Shield, Zap, Activity,
@@ -162,6 +163,7 @@ function StatCard({ stat, index }: { stat: any; index: number }) {
 /* ------------------------------------------------------------------ */
 export function StatsSection({ stats }: { stats: any[] }) {
   const data = stats?.length ? stats : DEFAULT_STATS
+  const t    = useTranslations('stats')
 
   return (
     <section className="py-24 border-b" style={{ borderColor: 'var(--color-border)' }}>
@@ -173,10 +175,10 @@ export function StatsSection({ stats }: { stats: any[] }) {
             className="font-display font-black text-3xl tracking-tight"
             style={{ color: 'var(--color-name)' }}
           >
-            ATRIBUTOS
+            {t('title')}
           </h2>
           <span className="font-mono text-xs" style={{ color: 'var(--color-muted)' }}>
-            / ATTRIBUTES
+            {t('subtitle')}
           </span>
           <div className="flex-1 h-px" style={{ background: 'var(--color-border)' }} />
           <span className="font-mono text-xs" style={{ color: 'var(--color-muted)' }}>
